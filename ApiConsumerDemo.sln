@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30413.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiConsumerDemo", "ApiConsumerDemo\ApiConsumerDemo.csproj", "{8BEAF5F5-1781-4CA7-A1B7-3EF0762B489E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoLibrary", "DemoLibrary\DemoLibrary.csproj", "{B6E0276E-7B70-404D-9F72-45A0B48C96D0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8BEAF5F5-1781-4CA7-A1B7-3EF0762B489E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BEAF5F5-1781-4CA7-A1B7-3EF0762B489E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BEAF5F5-1781-4CA7-A1B7-3EF0762B489E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BEAF5F5-1781-4CA7-A1B7-3EF0762B489E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6E0276E-7B70-404D-9F72-45A0B48C96D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6E0276E-7B70-404D-9F72-45A0B48C96D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6E0276E-7B70-404D-9F72-45A0B48C96D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6E0276E-7B70-404D-9F72-45A0B48C96D0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C73FBEFA-B1A0-4366-8943-7B7209965B2C}
+	EndGlobalSection
+EndGlobal
