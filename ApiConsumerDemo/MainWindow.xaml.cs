@@ -1,5 +1,6 @@
 ﻿using DemoLibrary;
 using System;
+using System.Net.Cache;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Imaging;
@@ -35,7 +36,9 @@ namespace ApiConsumerDemo
             currentNumber = comic.Num;
 
             var uriSource = new Uri(comic.Img, UriKind.Absolute);
-            comicImage.Source = new BitmapImage(uriSource);
+            
+            comicImage.Source = new BitmapImage(uriSource, 
+                new RequestCachePolicy(RequestCacheLevel.CacheIfAvailable));
 
         }
 
