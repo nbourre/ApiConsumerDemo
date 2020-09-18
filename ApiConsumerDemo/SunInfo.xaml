@@ -6,12 +6,17 @@
         xmlns:local="clr-namespace:ApiConsumerDemo"
         mc:Ignorable="d"
         Title="SunInfo" Height="450" Width="800">
-    <Grid>
+    <DockPanel>
+        <ToolBar DockPanel.Dock="Top" Height="36">
+            <Button x:Name="loadSunToo" Click="loadSunInfo_Click" Content="Télécharger"/>
+        </ToolBar>
+
         <StackPanel>
             <Button x:Name="loadSunInfo" Margin="20" Click="loadSunInfo_Click">
                 Télécharger les informations du soleil</Button>
             <TextBlock x:Name="sunriseText" Margin="20"/>
             <TextBlock x:Name="sunsetText" Margin="20"/>
         </StackPanel>
-    </Grid>
+    </DockPanel>
+    
 </Window>
