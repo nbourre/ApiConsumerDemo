@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ApiConsumerDemo"
         mc:Ignorable="d"
+        Loaded="Window_Loaded"
         Title="MainWindow" Height="450" Width="800"
-        Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -14,11 +15,11 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button x:Name="previousImageButton" Padding="15" Margin="15" Click="previousImageButton_Click">Précédent</Button>
-            <Button x:Name="sunInformationButton" Padding="15" Margin="15" Click="sunInformationButton_Click">Information du soleil</Button>
-            <Button x:Name="nextImageButton" Padding="15" Margin="15" Click="nextImageButton_Click">Suivant</Button>
+            <Button x:Name="previousImageButton" Padding="15" Margin="15" Command="{Binding LoadPreviousCommand}">Précédent</Button>
+            <Button x:Name="sunInformationButton" Padding="15" Margin="15">Information du soleil</Button>
+            <Button x:Name="nextImageButton" Padding="15" Margin="15" Command="{Binding LoadNextCommand}">Suivant</Button>
         </StackPanel>
 
-        <Image Grid.Row="1" Name="comicImage" Margin="20"/>
+        <Image Grid.Row="1" Name="comicImage" Margin="20" Source="{Binding ComicImage}"/>
     </Grid>
 </Window>

@@ -16,6 +16,7 @@ namespace ApiConsumerDemo.ViewModels
         private int currentNumber;
         private BitmapImage comicImage;
         private bool nextEnabled;
+        private bool previousEnabled = true;
 
         public int MaxNumber
         {
@@ -56,8 +57,6 @@ namespace ApiConsumerDemo.ViewModels
                 OnPropertyChanged();
             }
         }
-
-        private bool previousEnabled;
 
         public bool PreviousEnabled
         {
@@ -144,7 +143,6 @@ namespace ApiConsumerDemo.ViewModels
 
         private bool CanLoadPrevious(object arg) => PreviousEnabled;
         private bool CanLoadNext(object arg) => NextEnabled;
-
 
     }
 }
