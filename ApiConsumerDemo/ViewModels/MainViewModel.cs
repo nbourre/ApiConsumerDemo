@@ -1,9 +1,7 @@
 ﻿using ApiConsumerDemo.Commands;
 using DemoLibrary;
 using System;
-using System.Collections.Generic;
 using System.Net.Cache;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 
@@ -55,6 +53,7 @@ namespace ApiConsumerDemo.ViewModels
             {
                 nextEnabled = value;
                 OnPropertyChanged();
+                LoadNextCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -64,6 +63,7 @@ namespace ApiConsumerDemo.ViewModels
             set { 
                 previousEnabled = value;
                 OnPropertyChanged();
+                LoadPreviousCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -88,10 +88,7 @@ namespace ApiConsumerDemo.ViewModels
             LoadNextCommand = new AsyncCommand<object>(LoadNextAsync, CanLoadNext);
         }
 
-        private async Task WindowLoaded(object arg)
-        {
-            await LoadImageAsync();
-        }
+        private async Task WindowLoaded(object arg) => await LoadImageAsync();
 
         private async Task LoadImageAsync(int imageNumber = 0)
         {
@@ -124,8 +121,6 @@ namespace ApiConsumerDemo.ViewModels
                     PreviousEnabled = false;
                 }
             }
-
-            LoadNextCommand.RaiseCanExecuteChanged();
         }
 
         private async Task LoadNextAsync(object arg)
@@ -142,7 +137,7 @@ namespace ApiConsumerDemo.ViewModels
                 }
             }
 
-            LoadPreviousCommand.RaiseCanExecuteChanged();
+            
         }
 
         private bool CanLoadPrevious(object arg) => PreviousEnabled;

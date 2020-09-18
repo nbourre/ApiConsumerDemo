@@ -1,10 +1,6 @@
 ﻿using ApiConsumerDemo.ViewModels;
 using DemoLibrary;
-using System;
-using System.Net.Cache;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Media.Imaging;
 
 namespace ApiConsumerDemo
 {
