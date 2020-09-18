@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Commands\AsyncCommand.cs~RF24cb06b0.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\DemoLibrary\DemoLibrary.csproj" />
   </ItemGroup>
 

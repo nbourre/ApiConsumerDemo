@@ -124,6 +124,8 @@ namespace ApiConsumerDemo.ViewModels
                     PreviousEnabled = false;
                 }
             }
+
+            LoadNextCommand.RaiseCanExecuteChanged();
         }
 
         private async Task LoadNextAsync(object arg)
@@ -139,6 +141,8 @@ namespace ApiConsumerDemo.ViewModels
                     NextEnabled = false;
                 }
             }
+
+            LoadPreviousCommand.RaiseCanExecuteChanged();
         }
 
         private bool CanLoadPrevious(object arg) => PreviousEnabled;

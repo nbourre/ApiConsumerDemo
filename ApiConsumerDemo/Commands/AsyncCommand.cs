@@ -7,7 +7,7 @@ using System.Windows.Input;
 namespace ApiConsumerDemo.Commands
 {
     /// <summary>
-    /// Async Command with automatic firing of CanExecuteChanged
+    /// Async Command
     /// 
     /// Based on John Thiriet AsynCommand
     /// Source : https://johnthiriet.com/mvvm-going-async-with-async-command/
@@ -51,12 +51,14 @@ namespace ApiConsumerDemo.Commands
                     _isExecuting = false;
                 }
             }
+            RaiseCanExecuteChanged();
         }
 
-        public event EventHandler CanExecuteChanged
+        public event EventHandler CanExecuteChanged;
+
+        public void RaiseCanExecuteChanged()
         {
-            add { CommandManager.RequerySuggested += value; }
-            remove { CommandManager.RequerySuggested -= value; }
+            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
         }
 
         #region ICommand methods implementation
