@@ -132,6 +132,12 @@
   <data name="cmd_download" xml:space="preserve">
     <value>Télécharger</value>
   </data>
+  <data name="msg_sunrise" xml:space="preserve">
+    <value>Le Soleil se lèvera à</value>
+  </data>
+  <data name="msg_sunset" xml:space="preserve">
+    <value>Le Soleil se couchera à</value>
+  </data>
   <data name="wnd_main" xml:space="preserve">
     <value>Fenêtre principale</value>
   </data>

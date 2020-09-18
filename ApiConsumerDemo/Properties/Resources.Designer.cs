@@ -106,6 +106,24 @@ namespace ApiConsumerDemo.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The sun will rise at.
+        /// </summary>
+        public static string msg_sunrise {
+            get {
+                return ResourceManager.GetString("msg_sunrise", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The sun will set down at.
+        /// </summary>
+        public static string msg_sunset {
+            get {
+                return ResourceManager.GetString("msg_sunset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Main Window.
         /// </summary>
         public static string wnd_main {

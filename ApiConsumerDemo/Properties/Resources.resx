@@ -132,6 +132,12 @@
   <data name="cmd_download" xml:space="preserve">
     <value>Download</value>
   </data>
+  <data name="msg_sunrise" xml:space="preserve">
+    <value>The sun will rise at</value>
+  </data>
+  <data name="msg_sunset" xml:space="preserve">
+    <value>The sun will set down at</value>
+  </data>
   <data name="wnd_main" xml:space="preserve">
     <value>Main Window</value>
   </data>

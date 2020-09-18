@@ -4,16 +4,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ApiConsumerDemo"
+        xmlns:p="clr-namespace:ApiConsumerDemo.Properties"
         mc:Ignorable="d"
-        Title="SunInfo" Height="450" Width="800">
+        Title="{x:Static p:Resources.wnd_sunInfo}" Height="450" Width="800">
     <DockPanel>
         <ToolBar DockPanel.Dock="Top" Height="36">
-            <Button x:Name="loadSunToo" Click="loadSunInfo_Click" Content="Télécharger"/>
+            <Button x:Name="loadSunToo" Click="loadSunInfo_Click" Content="{x:Static p:Resources.cmd_download}"/>
         </ToolBar>
 
         <StackPanel>
-            <Button x:Name="loadSunInfo" Margin="20" Click="loadSunInfo_Click">
-                Télécharger les informations du soleil</Button>
+            <Button x:Name="loadSunInfo" Margin="20" Click="loadSunInfo_Click" Content="{x:Static p:Resources.btn_fetchSunInfo}"/>
             <TextBlock x:Name="sunriseText" Margin="20"/>
             <TextBlock x:Name="sunsetText" Margin="20"/>
         </StackPanel>
