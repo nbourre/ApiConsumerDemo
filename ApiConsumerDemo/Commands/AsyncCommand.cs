@@ -12,39 +12,39 @@ namespace ApiConsumerDemo.Commands
     /// Based on John Thiriet AsynCommand
     /// Source : https://johnthiriet.com/mvvm-going-async-with-async-command/
     /// </summary>
-    public interface IAsyncCommand : ICommand
+    public interface IAsyncCommand<T> : ICommand
     {
-        Task ExecuteAsync();
-        bool CanExecute();
+        Task ExecuteAsync(T parameter);
+        bool CanExecute(T parameter);
     }
 
-    class AsyncCommand : IAsyncCommand
+    public class AsyncCommand<T> : IAsyncCommand<T>
     {
         private bool _isExecuting;
-        private readonly Func<Task> _execute;
-        private readonly Func<bool> _canExecute;
+        private readonly Func<T, Task> _execute;
+        private readonly Func<T, bool> _canExecute;
 
         public AsyncCommand(
-            Func<Task> execute,
-            Func<bool> canExecute = null)
+            Func<T, Task> execute,
+            Func<T, bool> canExecute = null)
         {
             _execute = execute;
             _canExecute = canExecute;
         }
 
-        public bool CanExecute()
+        public bool CanExecute(T parameter)
         {
-            return !_isExecuting && (_canExecute?.Invoke() ?? true);
+            return !_isExecuting && (_canExecute?.Invoke(parameter) ?? true);
         }
 
-        public async Task ExecuteAsync()
+        public async Task ExecuteAsync(T parameter)
         {
-            if (CanExecute())
+            if (CanExecute(parameter))
             {
                 try
                 {
                     _isExecuting = true;
-                    await _execute();
+                    await _execute(parameter);
                 }
                 finally
                 {
@@ -62,14 +62,14 @@ namespace ApiConsumerDemo.Commands
         #region ICommand methods implementation
         public bool CanExecute(object parameter)
         {
-            return CanExecute();
+            return CanExecute((T)parameter);
         }
 
         public void Execute(object parameter)
         {
             /// We ignore the warning, since this way of executing
             /// is the sync way
-            ExecuteAsync();
+            ExecuteAsync((T) parameter);
         }
         #endregion
     }

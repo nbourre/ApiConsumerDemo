@@ -1,4 +1,5 @@
-﻿using DemoLibrary;
+﻿using ApiConsumerDemo.Commands;
+using DemoLibrary;
 using System;
 using System.Collections.Generic;
 using System.Net.Cache;
@@ -10,9 +11,11 @@ namespace ApiConsumerDemo.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
+        #region Properties
         private int maxNumber;
         private int currentNumber;
         private BitmapImage comicImage;
+        private bool nextEnabled;
 
         public int MaxNumber
         {
@@ -37,13 +40,61 @@ namespace ApiConsumerDemo.ViewModels
         public BitmapImage ComicImage
         {
             get => comicImage;
-            set { 
+            set
+            {
                 comicImage = value;
                 OnPropertyChanged();
             }
         }
 
-        private async Task LoadImage(int imageNumber = 0)
+        public bool NextEnabled
+        {
+            get => nextEnabled;
+            set
+            {
+                nextEnabled = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool previousEnabled;
+
+        public bool PreviousEnabled
+        {
+            get { return previousEnabled; }
+            set { 
+                previousEnabled = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        #endregion
+
+        #region Commands
+
+        public AsyncCommand<int> LoadImageCommand { get; private set; }
+        public AsyncCommand<object> WindowLoadedCommand { get; private set; }
+        public AsyncCommand<object> LoadPreviousCommand { get; private set; }
+        public AsyncCommand<object> LoadNextCommand { get; private set; }
+
+        #endregion
+
+        public MainViewModel()
+        {
+            LoadImageCommand = new AsyncCommand<int>(LoadImageAsync);
+            WindowLoadedCommand = new AsyncCommand<object>(WindowLoaded);
+
+            LoadPreviousCommand = new AsyncCommand<object>(LoadPreviousAsync, CanLoadPrevious);
+            LoadNextCommand = new AsyncCommand<object>(LoadNextAsync, CanLoadNext);
+        }
+
+        private async Task WindowLoaded(object arg)
+        {
+            await LoadImageAsync();
+        }
+
+        private async Task LoadImageAsync(int imageNumber = 0)
         {
             var comic = await ComicProcessor.LoadComic(imageNumber);
 
@@ -60,5 +111,40 @@ namespace ApiConsumerDemo.ViewModels
                 new RequestCachePolicy(RequestCacheLevel.CacheIfAvailable));
 
         }
+
+        private async Task LoadPreviousAsync(object arg)
+        {
+            if (currentNumber > 1)
+            {
+                currentNumber -= 1;
+                NextEnabled = true;
+                await LoadImageAsync(currentNumber);
+
+                if (currentNumber == 1)
+                {
+                    PreviousEnabled = false;
+                }
+            }
+        }
+
+        private async Task LoadNextAsync(object arg)
+        {
+            if (currentNumber < maxNumber)
+            {
+                currentNumber += 1;
+                PreviousEnabled = true;
+                await LoadImageAsync(currentNumber);
+
+                if (currentNumber == maxNumber)
+                {
+                    NextEnabled = false;
+                }
+            }
+        }
+
+        private bool CanLoadPrevious(object arg) => PreviousEnabled;
+        private bool CanLoadNext(object arg) => NextEnabled;
+
+
     }
 }
