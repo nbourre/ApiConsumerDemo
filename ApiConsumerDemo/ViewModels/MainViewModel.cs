@@ -1,6 +1,9 @@
 ﻿using ApiConsumerDemo.Commands;
 using DemoLibrary;
 using System;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
 using System.Net.Cache;
 using System.Threading.Tasks;
 using System.Windows;
@@ -79,6 +82,8 @@ namespace ApiConsumerDemo.ViewModels
         public AsyncCommand<object> LoadNextCommand { get; private set; }
         public DelegateCommand<string> ChangeLanguageCommand { get; private set; }
 
+        public AsyncCommand<string> TestCommand { get; private set; }
+
         #endregion
 
         public MainViewModel()
@@ -90,6 +95,15 @@ namespace ApiConsumerDemo.ViewModels
             LoadNextCommand = new AsyncCommand<object>(LoadNextAsync, CanLoadNext);
 
             ChangeLanguageCommand = new DelegateCommand<string>(ChangeLanguage);
+
+            TestCommand = new AsyncCommand<string>(Test);
+        }
+
+        private async Task Test(string arg)
+        {
+            var images = await DogProcessor.LoadDogImagesAsync(5);
+
+            MessageBox.Show(string.Join(Environment.NewLine, images));
         }
 
         private void ChangeLanguage(string param)
@@ -97,12 +111,18 @@ namespace ApiConsumerDemo.ViewModels
             Properties.Settings.Default.Language = param;
             Properties.Settings.Default.Save();
 
-            MessageBox.Show("Please restart app for the settings to take effect");
+            if (MessageBox.Show(
+                    "Please restart app for the settings to take effect.\nWould you like to restart?",
+                    "Warning!",
+                    MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                Restart();
         }
 
         void Restart()
         {
-            System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
+            var filename = Application.ResourceAssembly.Location;
+            var newFile = Path.ChangeExtension(filename, ".exe");
+            Process.Start(newFile);
             Application.Current.Shutdown();
         }
 

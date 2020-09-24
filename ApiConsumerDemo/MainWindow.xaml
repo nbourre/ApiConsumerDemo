@@ -15,6 +15,9 @@
                 <MenuItem Header="Français" Command="{Binding ChangeLanguageCommand}" CommandParameter="fr"/>
                 <MenuItem Header="Anglais" Command="{Binding ChangeLanguageCommand}" CommandParameter="en"/>
             </MenuItem>
+            <MenuItem Header="Test" Command="{Binding TestCommand}"/>
+
+
         </Menu>
         <Grid>
             <Grid.RowDefinitions>
