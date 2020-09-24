@@ -9,18 +9,26 @@
         Loaded="Window_Loaded"
         Title="{x:Static p:Resources.wnd_main}" Height="450" Width="800"
         WindowStartupLocation="CenterScreen">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Settings">
+                <MenuItem Header="Français" Command="{Binding ChangeLanguageCommand}" CommandParameter="fr"/>
+                <MenuItem Header="Anglais" Command="{Binding ChangeLanguageCommand}" CommandParameter="en"/>
+            </MenuItem>
+        </Menu>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button x:Name="previousImageButton" Padding="15" Margin="15" Command="{Binding LoadPreviousCommand}" Content="{x:Static p:Resources.btn_previous}"/>
-            <Button x:Name="sunInformationButton" Padding="15" Margin="15" Click="sunInformationButton_Click" Content="{x:Static p:Resources.btn_fetchSunInfo}"/>
-            <Button x:Name="nextImageButton" Padding="15" Margin="15" Command="{Binding LoadNextCommand}" Content="{x:Static p:Resources.btn_next}"/>
-        </StackPanel>
+            <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button x:Name="previousImageButton" Padding="15" Margin="15" Command="{Binding LoadPreviousCommand}" Content="{x:Static p:Resources.btn_previous}"/>
+                <Button x:Name="sunInformationButton" Padding="15" Margin="15" Click="sunInformationButton_Click" Content="{x:Static p:Resources.btn_fetchSunInfo}"/>
+                <Button x:Name="nextImageButton" Padding="15" Margin="15" Command="{Binding LoadNextCommand}" Content="{x:Static p:Resources.btn_next}"/>
+            </StackPanel>
 
-        <Image Grid.Row="1" Name="comicImage" Margin="20" Source="{Binding ComicImage}"/>
-    </Grid>
+            <Image Grid.Row="1" Name="comicImage" Margin="20" Source="{Binding ComicImage}"/>
+        </Grid>
+    </DockPanel>
 </Window>

@@ -3,6 +3,7 @@ using DemoLibrary;
 using System;
 using System.Net.Cache;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media.Imaging;
 
 namespace ApiConsumerDemo.ViewModels
@@ -76,6 +77,7 @@ namespace ApiConsumerDemo.ViewModels
         public AsyncCommand<object> WindowLoadedCommand { get; private set; }
         public AsyncCommand<object> LoadPreviousCommand { get; private set; }
         public AsyncCommand<object> LoadNextCommand { get; private set; }
+        public DelegateCommand<string> ChangeLanguageCommand { get; private set; }
 
         #endregion
 
@@ -86,6 +88,22 @@ namespace ApiConsumerDemo.ViewModels
 
             LoadPreviousCommand = new AsyncCommand<object>(LoadPreviousAsync, CanLoadPrevious);
             LoadNextCommand = new AsyncCommand<object>(LoadNextAsync, CanLoadNext);
+
+            ChangeLanguageCommand = new DelegateCommand<string>(ChangeLanguage);
+        }
+
+        private void ChangeLanguage(string param)
+        {
+            Properties.Settings.Default.Language = param;
+            Properties.Settings.Default.Save();
+
+            MessageBox.Show("Please restart app for the settings to take effect");
+        }
+
+        void Restart()
+        {
+            System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
+            Application.Current.Shutdown();
         }
 
         private async Task WindowLoaded(object arg) => await LoadImageAsync();

@@ -16,8 +16,8 @@ namespace ApiConsumerDemo
     {
         public App()
         {
-            Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("fr-CA");
-            //Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
+            var lang = ApiConsumerDemo.Properties.Settings.Default.Language;
+            Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(lang);
         }
     }
 }
