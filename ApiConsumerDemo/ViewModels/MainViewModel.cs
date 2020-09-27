@@ -101,9 +101,12 @@ namespace ApiConsumerDemo.ViewModels
 
         private async Task Test(string arg)
         {
-            var images = await DogProcessor.LoadDogImagesAsync(5);
+            //var images = await DogProcessor.LoadRandomDogImagesAsync();
+            //var images = await DogProcessor.LoadDogImagesAsync("kelpie");
+            //var images = await DogProcessor.LoadDogImagesAsync("terrier", "scottish");
+            var images = await DogProcessor.LoadDogImagesAsync("terrier", "", true, 5);
 
-            MessageBox.Show(string.Join(Environment.NewLine, images));
+            MessageBox.Show(string.Join(Environment.NewLine, images.Select(x => x.ImagePath).ToList()));
         }
 
         private void ChangeLanguage(string param)
