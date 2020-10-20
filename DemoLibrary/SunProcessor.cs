@@ -5,12 +5,14 @@ using System.Threading.Tasks;
 
 namespace DemoLibrary
 {
-    public class SunProcessor
+    public class SunProcessor : IRestProcessor
     {
+        public static string BaseUrl { get; private set; }
+
         public static async Task<SunModel> LoadSunInformation()
         {
             string url = 
-                "https://api.sunrise-sunset.org/json?lat=46.5389609&lng=-72.7467621&date=today";
+                $"{BaseUrl}/json?lat=46.5389609&lng=-72.7467621&date=today";
 
             using (HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync(url))
             {
@@ -26,6 +28,9 @@ namespace DemoLibrary
             }
         }
 
-
+        public void SetBaseUrl(string baseUrl)
+        {
+            BaseUrl = baseUrl;
+        }
     }
 }

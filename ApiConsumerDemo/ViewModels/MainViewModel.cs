@@ -137,12 +137,12 @@ namespace ApiConsumerDemo.ViewModels
 
             if (imageNumber == 0)
             {
-                maxNumber = comic.Num;
+                maxNumber = comic.Number;
             }
 
-            currentNumber = comic.Num;
+            currentNumber = comic.Number;
 
-            var uriSource = new Uri(comic.Img, UriKind.Absolute);
+            var uriSource = new Uri(comic.ImagePath, UriKind.Absolute);
 
             ComicImage = new BitmapImage(uriSource,
                 new RequestCachePolicy(RequestCacheLevel.CacheIfAvailable));

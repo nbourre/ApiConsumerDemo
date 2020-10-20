@@ -1,9 +1,15 @@
-﻿namespace DemoLibrary
+﻿using Newtonsoft.Json;
+
+namespace DemoLibrary
 {
     public class ComicModel
     {
-        public int Num { get; set; }
-        public string Img { get; set; }
+        [JsonProperty("num")]
+        public int Number { get; set; }
+
+        [JsonProperty("img")]
+        public string ImagePath { get; set; }
+
         public string Title { get; set; }
     }
 }

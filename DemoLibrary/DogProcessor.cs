@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 
 namespace DemoLibrary
 {
-    public class DogProcessor
+    public class DogProcessor : IRestProcessor
     {
+        public static string BaseUrl { get; private set; }
+
         public static async Task<List<string>> LoadRandomDogImagesAsync(int numberOfImages = 0)
         {
             string url =
-                "https://dog.ceo/api/breeds/image/random";
+                $"{BaseUrl}/breeds/image/random";
 
             if (numberOfImages > 1)
                 url += $"/{numberOfImages}";
@@ -102,6 +104,11 @@ namespace DemoLibrary
                     throw new Exception(response.ReasonPhrase);
                 }
             }
+        }
+
+        public void SetBaseUrl(string baseUrl)
+        {
+            BaseUrl = baseUrl;
         }
     }
 }

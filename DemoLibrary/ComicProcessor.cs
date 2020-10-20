@@ -4,16 +4,17 @@ using System.Threading.Tasks;
 
 namespace DemoLibrary
 {
-    public class ComicProcessor
+    public class ComicProcessor : IRestProcessor
     {
+        public static string BaseUrl { get; private set; }
 
         public static async Task<ComicModel> LoadComic(int comicNumber = 0)
         {
             string url;
             if (comicNumber > 0)
-                url = $"https://xkcd.com/{comicNumber}/info.0.json";
+                url = $"{BaseUrl}/{comicNumber}/info.0.json";
             else
-                url = $"https://xkcd.com/info.0.json";
+                url = $"{BaseUrl}/info.0.json";
 
             using (HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync(url))
             {
@@ -26,6 +27,11 @@ namespace DemoLibrary
                     throw new Exception(response.ReasonPhrase);
                 }
             }
+        }
+
+        public void SetBaseUrl(string baseUrl)
+        {
+            BaseUrl = baseUrl;
         }
     }
 }
