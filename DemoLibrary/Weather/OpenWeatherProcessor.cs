@@ -17,50 +17,82 @@ namespace DemoLibrary.Weather
 
         public string BaseURL { get; set; }
         public string EndPoint { get; set; }
-        
-        private UriBuilder uriBuilder;
-        private string longUrl;
 
-        private bool lastCallOk = false;
-        OpenWeatherResultModel cacheResult;
+        private string longUrl;
 
         private OpenWeatherProcessor()
         {
             BaseURL = $"https://api.openweathermap.org/data/2.5";
+            EndPoint = $"/weather?";
+
+        }
+
+
+        public async Task<OpenWeatherOneCallModel> GetOneCallAsync()
+        {
             EndPoint = $"/onecall?";
 
             /// Src : https://stackoverflow.com/a/14517976/503842
-            uriBuilder = new UriBuilder($"{BaseURL}{EndPoint}");
+            var uriBuilder = new UriBuilder($"{BaseURL}{EndPoint}");
 
             var query = HttpUtility.ParseQueryString(uriBuilder.Query);
-            query["lat"] = "46.5619"; // Shawinigan
-            query["long"] = "-72.7435";
+            query["lat"] = "46.5668"; // Shawinigan
+            query["lon"] = "-72.7491";
             query["units"] = "metric";
-            query["appid"] = "52d0d5f54ec34076e9dfd40dc192a12a";
+            query["appid"] = "52d0d5f54ec34076e9dfd40dc192a12af";
 
+            uriBuilder.Query = query.ToString();
             longUrl = uriBuilder.ToString();
+
+            return await doOneCall();
         }
 
-        public async Task<OpenWeatherResultModel> GetOneCallAsync()
+        public async Task<OWCurrentWeaterModel> GetCurrentWeather()
         {
-            if (lastCallOk && cacheResult != null) return cacheResult;
+            EndPoint = $"/weather?";
 
+            /// Src : https://stackoverflow.com/a/14517976/503842
+            var uriBuilder = new UriBuilder($"{BaseURL}{EndPoint}");
+
+            var query = HttpUtility.ParseQueryString(uriBuilder.Query);
+            query["q"] = "Shawinigan"; // Shawinigan
+            query["units"] = "metric";
+            query["appid"] = "52d0d5f54ec34076e9dfd40dc192a12af";
+
+            uriBuilder.Query = query.ToString();
+            longUrl = uriBuilder.ToString();
+
+            return await doCurrentWeatherCall();
+        }
+
+        private async Task<OpenWeatherOneCallModel> doOneCall()
+        {
 
             using (HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync(longUrl))
             {
                 if (response.IsSuccessStatusCode)
                 {
-                    lastCallOk = true;
-                    OpenWeatherResultModel result = await response.Content.ReadAsAsync<OpenWeatherResultModel>();
-                    cacheResult = result;
+                    OpenWeatherOneCallModel result = await response.Content.ReadAsAsync<OpenWeatherOneCallModel>();
                     return result;
-                    
-                } else
-                {
-                    lastCallOk = false;
-                    cacheResult = null;
-                    return null;
                 }
+
+                return null;
+            }
+        }
+
+        private async Task<OWCurrentWeaterModel> doCurrentWeatherCall()
+        {
+
+            using (HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync(longUrl))
+            {
+                if (response.IsSuccessStatusCode)
+                {
+                    OWCurrentWeaterModel result = await response.Content.ReadAsAsync<OWCurrentWeaterModel>();
+                    return result;
+                }
+
+                return null;
+                
             }
         }
     }

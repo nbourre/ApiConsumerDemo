@@ -1,4 +1,5 @@
 ﻿using ApiConsumerDemo.ViewModels;
+using ApiConsumerDemo.Views;
 using DemoLibrary;
 using System.Windows;
 
@@ -36,6 +37,12 @@ namespace ApiConsumerDemo
         {
             SunInfo sunInfo = new SunInfo();
             sunInfo.Show();
+        }
+
+        private void MenuItem_OpenWeather_Click(object sender, RoutedEventArgs e)
+        {
+            OpenWeatherView ow = new OpenWeatherView();
+            ow.Show();
         }
     }
 }
