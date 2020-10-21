@@ -5,10 +5,15 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
     <StartupObject>ApiConsumerDemo.App</StartupObject>
+    <UserSecretsId>f8a6187f-a9f5-41ec-a67a-fddb7ea0dc16</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Commands\AsyncCommand.cs~RF24cb06b0.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="3.1.0" />
   </ItemGroup>
 
   <ItemGroup>
