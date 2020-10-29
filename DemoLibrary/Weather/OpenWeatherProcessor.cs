@@ -1,11 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
@@ -16,6 +11,8 @@ namespace DemoLibrary.Weather
         private static readonly Lazy<OpenWeatherProcessor> lazy = new Lazy<OpenWeatherProcessor>(() => new OpenWeatherProcessor());
 
         public static OpenWeatherProcessor Instance { get { return lazy.Value; } }
+
+        public IConfiguration Configuration { get; }
 
         public string BaseURL { get; set; }
         public string EndPoint { get; set; }
@@ -62,7 +59,7 @@ namespace DemoLibrary.Weather
             var query = HttpUtility.ParseQueryString(uriBuilder.Query);
             query["q"] = "Shawinigan"; // Shawinigan
             query["units"] = "metric";
-            query["appid"] = "52d0d5f54ec34076e9dfd40dc192a12a";
+            query["appid"] = apiKey;
 
             uriBuilder.Query = query.ToString();
             longUrl = uriBuilder.ToString();
