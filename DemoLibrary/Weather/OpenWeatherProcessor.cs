@@ -1,7 +1,9 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,13 +22,15 @@ namespace DemoLibrary.Weather
 
         private string longUrl;
 
+        private string apiKey;
+
         private OpenWeatherProcessor()
         {
             BaseURL = $"https://api.openweathermap.org/data/2.5";
             EndPoint = $"/weather?";
 
+            apiKey = AppSecretConfigurations.Instance.GetSecret("OWApiKey");            
         }
-
 
         public async Task<OpenWeatherOneCallModel> GetOneCallAsync()
         {
@@ -39,7 +43,8 @@ namespace DemoLibrary.Weather
             query["lat"] = "46.5668"; // Shawinigan
             query["lon"] = "-72.7491";
             query["units"] = "metric";
-            query["appid"] = "52d0d5f54ec34076e9dfd40dc192a12af";
+            query["appid"] = apiKey;
+            
 
             uriBuilder.Query = query.ToString();
             longUrl = uriBuilder.ToString();
@@ -57,7 +62,7 @@ namespace DemoLibrary.Weather
             var query = HttpUtility.ParseQueryString(uriBuilder.Query);
             query["q"] = "Shawinigan"; // Shawinigan
             query["units"] = "metric";
-            query["appid"] = "52d0d5f54ec34076e9dfd40dc192a12af";
+            query["appid"] = "52d0d5f54ec34076e9dfd40dc192a12a";
 
             uriBuilder.Query = query.ToString();
             longUrl = uriBuilder.ToString();
