@@ -105,7 +105,7 @@ namespace ApiConsumerDemo.ViewModels
             //var images = await DogProcessor.LoadDogImagesAsync("kelpie");
             //var images = await DogProcessor.LoadDogImagesAsync("terrier", "scottish");
             var images = await DogProcessor.LoadDogImagesAsync("terrier", "", true, 5);
-
+            
             MessageBox.Show(string.Join(Environment.NewLine, images.Select(x => x.ImagePath).ToList()));
         }
 
@@ -113,6 +113,7 @@ namespace ApiConsumerDemo.ViewModels
         {
             Properties.Settings.Default.Language = param;
             Properties.Settings.Default.Save();
+            
 
             if (MessageBox.Show(
                     "Please restart app for the settings to take effect.\nWould you like to restart?",

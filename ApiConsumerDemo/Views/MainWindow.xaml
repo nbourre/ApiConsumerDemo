@@ -15,6 +15,9 @@
                 <MenuItem Header="Français" Command="{Binding ChangeLanguageCommand}" CommandParameter="fr"/>
                 <MenuItem Header="Anglais" Command="{Binding ChangeLanguageCommand}" CommandParameter="en"/>
             </MenuItem>
+            <MenuItem Header="Autres">
+                <MenuItem Header="OpenWeather" Click="MenuItem_OpenWeather_Click"/>
+            </MenuItem>
             <MenuItem Header="Test" Command="{Binding TestCommand}"/>
 
 
